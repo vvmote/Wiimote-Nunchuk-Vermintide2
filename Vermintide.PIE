@@ -1,0 +1,971 @@
+﻿// Herbs- GlovePie.43 Script + Vermintide2 + Wiimote & Nunchuk + Big Screen = Fun & Mild Exercise ((breathing & motor control)) Bless this Ravaged Body!
+
+// Features Smooth Responsive Linear IR Interpolation & Variable Motion Controls for in-game actions with ~Rumble feedback (for Left & Right handed players, single or dual weapon combat)
+// - IR + Motion is designed primarily for first person gaming not static backdrops (windows, menus feel a bit janky, Keep can lag) if useing Wii U use Wii mode to power Sensor Bar
+// - Sensor Bar required 40" Display rendering 60fps minimum, optimized for 60" 16x9 Display with Sensor Bar below (use CP-Settings above to set distance)
+// - Display size, hz, aspect ratio, input lag & PC mouse settings, fps, fov, stacking frames & Wiimote or Sensor Bar, calibration, position also light sources will effect IR
+// - Display refresh (120hz-240hz) will enhance Wiimote IR with diminishing returns (change resolution below, low frame rates less then 60fps or high can ping break motion control and combo keys)
+// - Place Wiimote level before running script wait 5-10 seconds for LED calibration (Wiimote+ enhanced) basic Wiimote (requires 1x edit) is lighter has more intense rumble and longer battery life
+// - (VR)mintide could work sitting but would require anything mouse movement related to be // deleted or binded to D-Pad only (IR-Mouse allows for movement not suitable in VR) no whirling wutelgi's
+
+// Control Key- Mote
+// - More actions with less buttons (combos & context sensitive) input range (2-500ms)
+
+// movement- up, down, left, right  - Thumbstick (Hold A or Z ,Dpad to Look:)
+// jump/dodge- C                    - C
+// jump- J                          - C, (Motion chuk for charged attack)
+// dodge- D                         - C, Hold Z and Thumbstick
+// crouch- L                        - Hold C - A, A and Down
+// walk- Shift                      - Down
+
+// attack- B                        - B, Motion mote or chuk, A and Motion mote or chuk (Hold A and B for rapid-fire) optional
+// defend/zoom- Z                   - Z
+// reload- R                        - Down, Doubleclick Z (switch-tag)
+// special- S                       - C and B, Down and B, Z and C
+// skill- X                         - Doubleclick C, Doubleclick Down + Z, Motion mote and Motion chuk
+// tag/wheel- T                     - Doubleclick Z, A and Down (tag) Hold Down (wheel)
+// wheel- W                         - Hold Down
+// use/grab- A                      - Doubleclick A, A and Z
+// melee- 1                         - +, Motion mote or chuk
+// ranged- 2                        - +, A and B
+// health- 3                        - Hold - (Motion chuk to drink) 2
+// potion- 4                        - Hold C and Z (Motion chuk to drink) Doubleclick and Hold - (Motion chuk to drink) 2
+// bomb- 5                          - Hold + (Motion mote to throw) Vertical chuk and hold C (Motion mote or chuk to throw) Hold 1 and 2
+// Swap- =                          - -, Doubleclick Z (switch-tag)
+// next- .                          -
+// previous- ,                      -
+// view hero- V                     - Hold Up
+// view weapon- Space               - Hold Down
+
+// list- Tab                        - + and -
+// map- M                           - 2
+// inventory- I                     - 1
+// hero- H                          - 1 and 2
+// challenges- O                    - Doubleclick 1 or 2
+
+// talk- G                          - (could be edited to + since weapon switching is automatic)
+// chat- Enter                      - Doubleclick Home
+// yes- wheelup                     - +
+// no- wheeldown                    - -
+// Esc                              - Home
+
+// Why Though?
+// DuckHunt was my first home console gaming experience lol...
+// Vermintide2s simple but in depth 1st person combat mechanics are an ideal fit to maximize the Wiimote+ Nunchuks function and capacity with basic reliable motion control (melee) precision IR aiming (ranged) and context sensitive inputs
+// Wiimotes are widely available but never met their full potential for 1st person gaming mostly due to hardware limitations and difficulty to implement and use but offer exponential levels of control compared to traditional Dual-Analog controllers (without nerfed auto-aim)
+// IR aiming can have the advantages of mouse acceleration or a track ball with expanded range of motion paired with Thumbstick control offers potentially more natural in-game tracking & movment for large displays compared to Mouse & Keyboard if implemented properly also more actions can be acheived with less inputs using motion control
+// Gaming on larger displays also performing approx in-game actions with ~Rumble feedback can both potentially enhance immersion for existing 1st person titles (VR requires reworked game design from the ground up in most cases)
+// Wiimotes are 3D controllers and motion controls require effort which can enhance already rewarding in-game mechanics though aerobic exertion (shooting and throwing punches feels good imo)
+// Future eye tracking combined with pointer control for large displays could become an alternative to VR (Nintendo)
+// Benefits posture, fitness and coordination (why hunch over a desk with a typewriter lol jk game how you prefer)
+
+// How to Play- Motion Controls
+// Center yourself or Wiimote with Display and Sensor Bar approx measured distance, find your comfortable IR-Center maintain good posture and make controlled movements (precision requires a steady hand lumberfoots, use an arm rest and position Sensor Bar height so it is comfortable to aim ;)
+// Wiimote and Nunchuk are Bloody Battering Rams!!! Thats what they are! (maybe use the wrist strap and sleave mayflies ;)
+// Perform character actions (A)im & shoot, shove, stab, hack & slash (make fast movements or throw light punches for quick attacks more controller movements for charged)
+// All attacks will trigger variable ~Rumble feedback (on all the time lol)
+
+// Basics
+// Aim at Sensor Bar IR-Center and Display Hold A or Down for Pointer Control and Click or Doubleclick B and Z in menus (Home = Esc)
+// A = aim, B = attack, A + B = ranged attack, Z = defend and dodge, C = dodge and jump or duck
+// Doubleclick A = grab or interact, Doubleclick Z = switch-tag, Doubleclick C = skill (check skills
+// Nunchuk Thumbstick controls movement with dynamic strafeing and turning (more info below)
+
+// Offense
+// Motion Mote or Chuk will switch to Melee weapon
+// A + Mote stab and slash will trigger Quick or Charged attacks depending on force and rhythm (quick melee if ranged weapon held)
+// A + Mote + Chuk shove will trigger Charged attacks (better for combos with some weapons)
+// Fast Mote or Chuk (optional) strikes will trigger Quick attacks for single or dual weapon combat (check Mote- Motion section)
+// Smooth Mote motion away from display will Charge melee attack
+// Smooth Chuk vertical will Charge melee attack
+
+// Defense
+// Find your IR-Center hold steady and breath when Aiming/Defending with A & Z or trigger unwanted attacks and pushes (limit the waggle-flailing and ff mayflies ;)
+// Doubleclicked A will cancel Attack
+// Z or A + Z with Wiimote Aiming will cancel Attack/Defend
+// Z + Chuk strike will Push
+// A + Z + Mote stab or slash will trigger a Push Strike
+// When Aiming Down Sights with Held A + Z Fast Mote and Chuk strikes will switch to Defend or Pushes depending on force
+
+// Advanced
+// Z + Down = Snipe, Z + Down or Z + C or Down + B = Special (optional) Z + Doubleclicked Down = Skill (check Chuk- Waggle section)
+// C + Chuk strike will trigger a jumping Charged attack
+// C + Z + Chuk or Mote strike will trigger Jump-Duck Push/Strikes
+// Fast- Mote strikes while holding Z will cancel Defend/Attack with Thumbstick control
+// Fast- Mote strikes repeatedly while holding B will trigger Dash-Attack, Hold Z for Thumbstick control
+// Hard- Mote + Chuk strike will trigger Skill
+
+// Items
+// Doubleclicked A or Z will Grab, Doubleclicked A and Hold Z will Interact/Revive/Defend (note) attacks will not trigger while A button + A key are held
+// Press + to switch weapons, Hold + to hold Bomb, Hold + and motion Mote to throw Bomb
+// Hold C and vertical Chuk to hold Bomb, Release C or motion Mote to throw or motion Chuk to jump-throw Bomb (note holding Chuk vertical also makes C button attack without bomb)
+// Vertical Mote and Doubleclick B will also throw bomb
+// Click or Doubleclick - to hold Medkit or Potions, Hold - and motion Chuk to Swig or Press B
+// Hold C + Z and motion Chuk to Swig 2nd Potion
+// B can also throw Bombs or drink Potions or use Medkits
+
+// Other
+// B, Up, Down will activate variable IR if Wiimote is Pointed at Display
+// Down = reload and tag, Hold Down = wheel and inspect weapon, Hold Up = inspect character, Doubleclick Up = insta 180*
+// D-Pad Left & Right = look, D-Pad Up & Down + Mote off screen = look, Held + or - and Mote strikes also vertical Mote or Chuk = Thumbstick control
+// 1 & 2 also 1 + 2 will open menus in Keep, switch or use Potions and Bombs during gameplay
+// Various button presses including grab, wheel and tag trigger emotes ;)
+
+// Attention!
+// Glovepie is system level if the Wiimote disconnects while IR is (A)ctive you will likey have to manually restart or sign out (because mouse control could be temporarily broken)
+// The following Script offer no cheating advantage over what can be easily acheived with Mouse & Keyboard... (acceleration, keybinds)
+// Script is optimized for Center of Display at roughly eye-level with Sensor Bar below Display (Sensor Bar above Display may work better for your setup make sure to change Wii- Sensor Bar settings)
+// - (note) some builds require simple edits to (optional) Barrage & Skills scripts below also (Dual Melee or Push+) scripts can be deleted // for single or dual weapon combat (dual weilding recommended)
+// - (note) Slayer requires additional x5 edits (instructions below) unless using ranged secondary weapon (Come on Wazzoks! more like the Ubersreik four and a half)
+// - (note) calibrate all Wiimotes for offsets with xyzg's also check x1 simple edit below for basic Wiimote & Wiimote+
+// [DANGER] do not throw Wiimote! [WARNING] use motion controls at own risk... (coordination and effort required, no lumberfoots ;)
+
+// Wiimote refresh- 500hz (1024x768, 100hz IR, Accel/Gyro x3)
+
+Debug = wiimote.gx + " " + wiimote.gy + " " + wiimote.gz// use opposite values for offsets or try any variable or Wiimote function
+
+// Calibrate TriForces
+
+var.xOffset = 0.02                                            //\
+var.yOffset = -1.04                                         //---\
+var.zOffset = -0.02                                       //___V__\
+var.xRot = var.xOffset + Wiimote.gx                      //\     //\
+var.yRot = var.yOffset + Wiimote.gy                    //---\   /---\
+var.zRot = var.zOffset + Wiimote.gz                  //___V__\//__V__\
+
+// Phantom Dot Sensor Bar
+
+var.SensorBarSeparation = 190.5mm
+var.NoYawAllowed = false // Wiimote = true, Wiimote+ = false
+var.IRMulX = 1.2
+var.IRMulY = 1.2
+var.IROffsetX = 0
+var.IROffsetY = 0
+var.IRButton = Wiimote.A and Wiimote.Down and Wiimote.Up
+
+// Roll
+var.c = cos(smooth(var.xRot, 10))
+var.s = sin(smooth(var.xRot, 10))
+
+if wiimote.dot1vis then
+var.dot1x = var.c*(511.5-wiimote.dot1x)/511.5 - var.s*(wiimote.dot1y-383.5)/511.5
+var.dot1y = var.s*(511.5-wiimote.dot1x)/511.5 + var.c*(wiimote.dot1y-383.5)/511.5
+endif
+if wiimote.dot2vis then
+var.dot2x = var.c*(511.5-wiimote.dot2x)/511.5 - var.s*(wiimote.dot2y-383.5)/511.5
+var.dot2y = var.s*(511.5-wiimote.dot2x)/511.5 + var.c*(wiimote.dot2y-383.5)/511.5
+endif
+
+// Dots
+if wiimote.dot1vis and wiimote.dot2vis then
+if var.dot1x <= var.dot2x then
+var.leftdot = 1
+var.dotdeltay = var.dot2y - var.dot1y
+else
+var.leftdot = 2
+var.dotdeltay = var.dot1y - var.dot2y
+endif
+var.dotdeltax = abs(var.dot1x-var.dot2x)
+var.DotSep = hypot(var.dotdeltax, var.dotdeltay) * 511.5
+var.IRDistance = var.SensorBarSeparation * 1320 / var.DotSep
+endif
+
+if var.leftdot = 1 then
+if wiimote.dot1vis and wiimote.dot2vis then
+var.LeftDotX = var.dot1x
+var.LeftDotY = var.dot1y
+var.LeftDotVis = true
+var.RightDotX = var.dot2x
+var.RightDotY = var.dot2y
+var.RightDotVis = true
+elseif wiimote.dot1vis then
+if hypot(var.leftdotx-var.dot1x,var.leftdoty-var.dot1y) <= hypot(var.rightdotx-var.dot1x,var.rightdoty-var.dot1y) then
+var.LeftDotX = var.dot1x
+var.LeftDotY = var.dot1y
+var.RightDotX = var.dot1x + var.dotdeltax
+var.RightDotY = var.dot1y + var.dotdeltay
+var.LeftDotVis = true
+var.RightDotVis = false
+else
+var.leftdot = 2
+var.LeftDotX = var.dot1x - var.dotdeltax
+var.LeftDotY = var.dot1y - var.dotdeltay
+var.RightDotX = var.dot1x
+var.RightDotY = var.dot1y
+var.RightDotVis = true
+var.LeftDotVis = false
+endif
+elseif wiimote.dot2vis then
+var.LeftDotX = var.dot2x - var.dotdeltax
+var.LeftDotY = var.dot2y - var.dotdeltay
+var.RightDotX = var.dot2x
+var.RightDotY = var.dot2y
+var.RightDotVis = true
+var.LeftDotVis = false
+endif
+elseif var.leftdot = 2 then
+if wiimote.dot1vis and wiimote.dot2vis then
+var.LeftDotX = var.dot2x
+var.LeftDotY = var.dot2y
+var.LeftDotVis = true
+var.RightDotX = var.dot1x
+var.RightDotY = var.dot1y
+var.RightDotVis = true
+elseif wiimote.dot1vis then
+if hypot(var.leftdotx-var.dot1x,var.leftdoty-var.dot1y) <= hypot(var.rightdotx-var.dot1x,var.rightdoty-var.dot1y) then
+var.leftdot = 1
+var.LeftDotX = var.dot1x
+var.LeftDotY = var.dot1y
+var.RightDotX = var.dot1x + var.dotdeltax
+var.RightDotY = var.dot1y + var.dotdeltay
+var.LeftDotVis = true
+var.RightDotVis = false
+else
+var.LeftDotX = var.dot1x - var.dotdeltax
+var.LeftDotY = var.dot1y - var.dotdeltay
+var.RightDotX = var.dot1x
+var.RightDotY = var.dot1y
+var.RightDotVis = true
+var.LeftDotVis = false
+endif
+elseif wiimote.dot2vis then
+var.RightDotX = var.dot2x + var.dotdeltax
+var.RightDotY = var.dot2y + var.dotdeltay
+var.LeftDotX = var.dot2x
+var.LeftDotY = var.dot2y
+var.LeftDotVis = true
+var.RightDotVis = false
+endif
+else
+var.LeftDotX = var.dot1x
+var.LeftDotY = var.dot1y
+var.RightDotX = var.LeftDotX
+var.RightDotY = var.LeftDotY
+var.LeftDotVis = true
+var.RightDotVis = true
+endif
+
+// Phantom Dot
+var.MiddleDotX = (var.leftdotx + var.rightdotx)/2
+var.MiddleDotY = (var.leftdoty + var.rightdoty)/2
+var.MiddleDotVis = wiimote.dot1vis or wiimote.dot2vis
+
+if var.MiddleDotVis then
+var.TotalPitch = atan2(511.5*var.MiddleDotY,1320) + var.yRot
+var.DotYaw = atan2(-511.5*var.MiddleDotX,1320)
+var.WiimoteYawNoX = atan2(511.5*var.MiddleDotX,1320) + Wiimote.Yaw
+var.WiimoteXNoYaw = -sin(var.dotyaw)*var.IRDistance
+var.WiimoteY = -sin(var.totalpitch)*var.IRDistance
+var.WiimoteZ = (-sqrt(sqr(var.IRDistance) - sqr(var.WiimoteY)))*var.IRDistance/RemoveUnits(var.IRDistance)
+endif
+
+// Scale
+var.IRx = var.IRMulX*var.middledotx/2 + 0.5
+var.IRy = var.IRMulY*var.middledoty*2600/1600/2 + 0.5
+var.IRvis = wiimote.dot1vis or wiimote.dot2vis
+var.IROnScreen = 0 <= var.IRx <= 1 and 0 <= var.IRy <= 1
+var.IRTooFarLeft = var.IRx < 0 or (var.IRx < 0.1 and (not var.IRvis))
+var.IRTooFarRight = var.IRx > 1 or (var.IRx > 1-0.1 and (not var.IRvis))
+var.IRTooFarUp = var.IRy < 0 or (var.IRy < 0.1 and (not var.IRvis))
+var.IRTooFarDown = var.IRy > 1 or (var.IRy > 1-0.1 and (not var.IRvis))
+
+// Smooth
+var.MoveAmount = 1024*hypot(delta(var.IRx), delta(var.IRy))
+if smooth(var.MoveAmount) > 12 then
+var.SmoothX = var.IRx
+var.SmoothY = var.IRy
+var.LastSureFrame = PIE.Frame
+elseif (PIE.frame-var.LastSureFrame) > 18 then
+var.SmoothX = Smooth(var.IRx, 18, 4/1024)
+var.SmoothY = Smooth(var.IRy, 18, 4/1024)
+elseif (PIE.frame-var.LastSureFrame) > 14 then
+var.SmoothX = Smooth(var.IRx, 14, 4/1024)
+var.SmoothY = Smooth(var.IRy, 14, 4/1024)
+elseif (PIE.frame-var.LastSureFrame) > 10 then
+var.SmoothX = Smooth(var.IRx, 10, 4/1024)
+var.SmoothY = Smooth(var.IRy, 10, 4/1024)
+elseif (PIE.frame-var.LastSureFrame) > 6 then
+var.SmoothX = Smooth(var.IRx, 6, 4/1024)
+var.SmoothY = Smooth(var.IRy, 6, 4/1024)
+elseif (PIE.frame-var.LastSureFrame) > 2 then
+var.SmoothX = Smooth(var.IRx, 2, 4/1024)
+var.SmoothY = Smooth(var.IRy, 2, 4/1024)
+endif
+
+var.Freeze = var.IRButton and KeepDown(pressed(var.IRButton) or pressed(var.IRButton), 10ms)
+
+// WiiMouse- IR Orb, Accurate Center Linear Offset
+// - (note) calibrated on 1080p 60hz 16x9 60" Display 90-100fov 1.2m distance
+
+if Wiimote.A and Wiimote.B = false and var.middledotvis and var.leftdotvis and var.rightdotvis then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x               // IR Motion Pointer for first person gaming (settings)-> adjust axis for fov aspect ratios or preference))*barrier)^pixels
+fakemouse.directinputx=(var.x1)*3%
+var.y=-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth)+sign(-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth))*(abs(wiimote.pointery-1/2)*5.5)^5.5
+var.yout=(var.y+var.y1)
+var.y1=var.yout+var.y
+fakemouse.directinputy=(-var.y1)*3%
+elseif Wiimote.A and Wiimote.B = false and var.middledotvis and (var.leftdotvis = false or var.rightdotvis = false) then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x
+fakemouse.directinputx=(var.x1)*3%
+var.y=-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth)+sign(-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth))*(abs(wiimote.pointery-1/2)*5.5)^5.5
+var.yout=(var.y+var.y1)
+var.y1=var.yout+var.y
+fakemouse.directinputy=(-var.y1)*3%
+elseif Wiimote.A and Wiimote.B = false and var.middledotvis = false and ((var.leftdotvis = true and var.rightdotvis = false) or (var.leftdotvis = false and var.rightdotvis = true)) then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x               // OneEyed Grimgi (-dot deduction)
+fakemouse.directinputx=(var.x1)*3%
+elseif Wiimote.A and Wiimote.B = false and ((var.leftdotvis = false and var.rightdotvis = false) or (Wiimote.PointerOnScreen = false)) then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x               // Whirling Wutelgi (lateral momentum+)
+fakemouse.directinputx=(var.x1)*3%
+endif
+
+if Wiimote.B and (Wiimote.A or Wiimote.PointerOnScreen) and Wiimote.Down = false and Wiimote.Shakiness > 10 = false then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x               // Honed Trigger
+fakemouse.directinputx=(var.x1)*3%
+var.y=-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth)+sign(-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth))*(abs(wiimote.pointery-1/2)*5.5)^5
+var.yout=(var.y+var.y1)
+var.y1=var.yout+var.y
+fakemouse.directinputy=(-var.y1)*3%
+endif
+if Wiimote.Up and Wiimote.PointerVisible and Wiimote.Shakiness > 8 = false then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x               // 3rd Person
+fakemouse.directinputx=(var.x1)*3%
+var.y=-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth)+sign(-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth))*(abs(wiimote.pointery-1/2)*5.5)^5
+var.yout=(var.y+var.y1)
+var.y1=var.yout+var.y
+fakemouse.directinputy=(-var.y1)*3%
+endif
+if Wiimote.Down and Wiimote.PointerOnScreen and Wiimote.A = false and Wiimote.Shakiness > 8 = false then
+var.width = 1024/2
+var.heidth = 768/2
+var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*0.015)^5
+var.xout=(var.x+var.x1)
+var.x1=var.xout+var.x               // Sniper Aim, Wheel
+fakemouse.directinputx=(var.x1)*3%
+var.y=-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth)+sign(-wiimote.dot1y+(var.heidth)-wiimote.dot2y+(var.heidth))*(abs(wiimote.pointery-1/2)*0.01)^5
+var.yout=(var.y+var.y1)
+var.y1=var.yout+var.y
+fakemouse.directinputy=(-var.y1)*3%
+endif
+
+if Wiimote.Shakiness > 2 and Wiimote.PointerOnScreen = false and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.A = false and Wiimote.Down = false and Wiimote.Plus = false and Wiimote.Minus = false and Wiimote.One = false and Wiimote.Two = false and Keyboard.B = false and Keyboard.Five = false then
+Keyboard.One = true
+wait 2 ms                           // IR Melee Barrier
+Keyboard.One = false
+Keyboard.B = Wiimote.PointerOnScreen = false and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.A = false and Wiimote.Nunchuk.Z = false and Wiimote.Down = false and Wiimote.Plus = false and Wiimote.Minus = false and Wiimote.One = false and Wiimote.Two = false
+elseif Wiimote.A = true or Wiimote.Nunchuk.Z = true or Wiimote.Plus = true or Wiimote.Minus = true or Keyboard.Five = true or Keyboard.Equals = true then
+Keyboard.One = false and Keyboard.B = false
+endif
+
+// WiiMouse- Dynamic Dpad & Thumbstick Control
+
+Mouse.DirectInputX -= Wiimote.Left *20
+Mouse.DirectInputX += Wiimote.Right *20
+Mouse.DirectInputX -= HeldDown (Wiimote.Left, 60ms) *10
+Mouse.DirectInputX += HeldDown (Wiimote.Right, 60ms) *10
+Mouse.DirectInputX -= HeldDown (Wiimote.Left, 120ms) *10
+Mouse.DirectInputX += HeldDown (Wiimote.Right, 120ms) *10
+Mouse.DirectInputX -= HeldDown (Wiimote.Left, 240ms) *10
+Mouse.DirectInputX += HeldDown (Wiimote.Right, 240ms) *10
+Mouse.DirectInputX -= HeldDown (Wiimote.Left, 500ms) *20
+Mouse.DirectInputX += HeldDown (Wiimote.Right, 500ms) *20
+
+if Wiimote.PointerOnScreen = false or Wiimote.Shakiness > 8 then
+Mouse.DirectInputY -= Wiimote.Down *20// ^if using (Y)- Targeting add and Wiimote.Nunchuk.Z (info below)
+endif
+if Wiimote.PointerOnScreen = false or Wiimote.Shakiness > 8 then
+Mouse.DirectInputY += Wiimote.Up *20// ^swap Up-Down for inverted D-Pad
+endif
+if DoubleClicked (Wiimote.Up) then
+Mouse.DirectInputX += 2070          // insta 180* (90fov = 2222)
+endif
+
+if Wiimote.A = false and Wiimote.Minus and Wiimote.Nunchuk.JoyX < -0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Minus and Wiimote.Nunchuk.JoyX > 0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Minus and Wiimote.Nunchuk.JoyX < -0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Minus and Wiimote.Nunchuk.JoyX > 0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Minus and Wiimote.Nunchuk.JoyX < -0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Minus and Wiimote.Nunchuk.JoyX > 0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+if Wiimote.A = false and Wiimote.Minus and HeldDown (Wiimote.Nunchuk.JoyX < -0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Minus and HeldDown (Wiimote.Nunchuk.JoyX > 0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+
+if Wiimote.A = false and Wiimote.Plus and Wiimote.Nunchuk.JoyX < -0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Plus and Wiimote.Nunchuk.JoyX > 0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Plus and Wiimote.Nunchuk.JoyX < -0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Plus and Wiimote.Nunchuk.JoyX > 0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Plus and Wiimote.Nunchuk.JoyX < -0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Plus and Wiimote.Nunchuk.JoyX > 0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+if Wiimote.A = false and Wiimote.Plus and HeldDown (Wiimote.Nunchuk.JoyX < -0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Plus and HeldDown (Wiimote.Nunchuk.JoyX > 0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.JoyX < -0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.JoyX > 0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.JoyX < -0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.JoyX > 0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.JoyX < -0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.JoyX > 0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and HeldDown (Wiimote.Nunchuk.JoyX < -0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Z = true and Wiimote.Shakiness > 8 and HeldDown (Wiimote.Nunchuk.JoyX > 0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and Wiimote.Nunchuk.JoyX < -0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and Wiimote.Nunchuk.JoyX > 0.3 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and Wiimote.Nunchuk.JoyX < -0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX -10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and Wiimote.Nunchuk.JoyX > 0.6 then
+Mouse.DirectInputX = Mouse.DirectInputX +10
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and Wiimote.Nunchuk.JoyX < -0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and Wiimote.Nunchuk.JoyX > 0.9 then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and HeldDown (Wiimote.Nunchuk.JoyX < -0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX -20
+endif
+if Wiimote.A = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 60 and HeldDown (Wiimote.Nunchuk.JoyX > 0.9, 400ms) then
+Mouse.DirectInputX = Mouse.DirectInputX +20
+endif
+
+// Key- Buttons
+// - Optional Aimbot Mod (Y)- Targeting can be used solo only for melee attacks when reticle is on target and Wiimote is off screen or striking when holding Down (if future Aimbot mod only targets tagable specials & elites not trashmobs and focuses on center of mass instead of headshots could make for very fun solo)
+// - (note) above and below if using (Y) also change (T) Keybinding (in-game) to tag only for it to work (Y)- Targets outlined in (Red) cant be abused with ranged mayflies ;)
+
+Mouse.LeftButton = Wiimote.B
+Mouse.RightButton = Wiimote.Nunchuk.Z
+Mouse.RightButton = DoubleClicked (Wiimote.B)
+Mouse.WheelUp = Wiimote.Plus
+Mouse.WheelDown = Wiimote.Minus
+
+Keyboard.B = Wiimote.B and Wiimote.A = false// Melee Slayer- (delete // Wiimote.A = false)
+Keyboard.R = HeldDown (Wiimote.Down, 10ms) and Wiimote.PointerOnScreen and Wiimote.Nunchuk.Z = false
+Keyboard.S = Wiimote.B and Wiimote.A = false and Wiimote.Minus = false
+Keyboard.T = Wiimote.Down and Wiimote.PointerOnScreen = true and Wiimote.A = false and Wiimote.Nunchuk.C = false and Wiimote.Shakiness > 7 = false and Wiimote.Nunchuk.Shakiness > 15 = false and HeldDown (Wiimote.Nunchuk.Z, 80ms) = false
+Keyboard.V = Wiimote.Up and Wiimote.PointerVisible
+Keyboard.W = DoubleClicked (Wiimote.Down) and Wiimote.PointerOnScreen and Wiimote.A = false and Wiimote.Nunchuk.C = false and Wiimote.Shakiness > 7 = false and Wiimote.Nunchuk.Shakiness > 15 = false and HeldDown (Wiimote.Nunchuk.Z, 80ms) = false
+//Keyboard.Y = Wiimote.Down and (Wiimote.PointerOnScreen = false or Wiimote.Shakiness > 8 or Wiimote.Nunchuk.Shakiness > 16) and Wiimote.Nunchuk.Z = false and Wiimote.A = false and Wiimote.B = false
+Keyboard.Shift = Wiimote.Down and Wiimote.PointerOnScreen// ^optional (Y)-Targeting with Aimbot mod for solo use intructions above or // default
+Keyboard.Space = Wiimote.Down and Wiimote.A = false and Wiimote.B = false and Wiimote.PointerOnScreen and Wiimote.Nunchuk.C = false and Wiimote.Nunchuk.Z = false and Wiimote.Shakiness > 7 = false and Wiimote.Nunchuk.Shakiness > 15 = false and Keyboard.Y = false
+
+if DoubleClicked (Wiimote.A) and Wiimote.Nunchuk.Z = false then
+Keyboard.Equals = true
+wait 100 ms                         // Grab, Attack-Cancel
+Keyboard.Equals = false
+Keyboard.Equals = true
+wait 100 ms
+Keyboard.Equals = false
+Keyboard.A = true
+wait 300 ms
+Keyboard.A = false
+elseif HeldDown (Wiimote.Nunchuk.Z, 500ms) and DoubleClicked (Wiimote.A) and Keyboard.B = false and Keyboard.X = false then
+Keyboard.One = true
+wait 2 ms                           // Melee Slayer- (delete // Keyboard.Ones)
+Keyboard.One = false
+Keyboard.A and Keyboard.Z = true
+elseif Wiimote.A = false or Wiimote.Nunchuk.Z = false or Keyboard.B or Keyboard.X or Wiimote.Nunchuk.Shakiness > 16 then
+Keyboard.A = false                  // Interact, Revive-Defend
+elseif Wiimote.Nunchuk.Z = false then
+Keyboard.Z = false
+endif
+
+if Wiimote.A and Wiimote.Down then
+Keyboard.T = true
+wait 20 ms                          // Tag
+Keyboard.T = false
+endif
+if Wiimote.A and Wiimote.Down then
+Keyboard.L = true
+wait 200 ms                         // Duck ''-
+Keyboard.L = false
+endif
+
+Keyboard.Enter = DoubleClicked (Wiimote.Home)
+Keyboard.Escape = HeldDown (Wiimote.Home, 150ms)
+Keyboard.Tab = Wiimote.Plus and Wiimote.Minus
+Keyboard.Equals = Wiimote.Plus and HeldDown (Wiimote.Plus, 200ms) = false and Wiimote.Minus = false// edit for Talk- (G) delete HeldDown Wiimote.Plus and Keyboard.Five below
+Keyboard.One = Wiimote.Plus and Wiimote.Minus
+Keyboard.Three = Wiimote.Minus
+Keyboard.Four = DoubleClicked (Wiimote.Minus)
+Keyboard.Five = HeldDown (Wiimote.Plus, 300ms)
+
+Keyboard.B = HeldDown (Wiimote.Two, 500ms)
+Keyboard.I = HeldDown (Wiimote.One, 120ms)
+Keyboard.M = HeldDown (Wiimote.Two, 120ms)
+Keyboard.O = DoubleClicked (Wiimote.One)
+Keyboard.Z = HeldDown (Wiimote.Two, 500ms)
+Keyboard.Three = HeldDown (Wiimote.Two, 300ms)
+Keyboard.Four = HeldDown (Wiimote.Two, 300ms)
+Keyboard.F10 = HeldDown (Wiimote.Two, 50ms)
+
+if Wiimote.One and Wiimote.Two then
+Keyboard.H = true
+wait 120 ms                         // Character Select
+Keyboard.H = false
+wait 380 ms
+endif
+
+if Wiimote.One and Wiimote.Two then
+Keyboard.Five = true
+wait 120 ms                         // Bomb
+Keyboard.B = true
+wait 120 ms
+Keyboard.B and Keyboard.Five = false
+wait 260 ms
+endif
+
+if Keyboard.B = true then Keyboard.T = false
+if Keyboard.Five = true then Keyboard.One = false
+
+if Keyboard.BackSpace = true then
+Keyboard.AnyKey = false
+endif
+if Keyboard.Enter = true then
+Keyboard.AnyKey = false
+endif
+if Keyboard.Esc = true then
+Keyboard.AnyKey = false
+endif
+
+if Wiimote.PointerOnScreen = false and Wiimote.Nunchuk.OnTable and HeldDown (Wiimote.Nunchuk.OnTable, 100ms) = false then
+Keyboard.One and Keyboard.B and Keyboard.X = false
+endif                               // IR Attack Spam Cancel (Wiimote & Nunchuk on flat surface)
+
+// Mote Motion & Chuk Waggle
+
+if Wiimote.B and Wiimote.Shakiness > 7 and Wiimote.Nunchuk.Shakiness > 15 = false and Wiimote.Nunchuk.Z = false then
+Keyboard.One = true
+wait 2 ms                           // Mote Melee Switch
+Keyboard.One = false
+elseif Wiimote.B and Wiimote.Nunchuk.Z and Wiimote.Shakiness > 7 and Wiimote.Nunchuk.Shakiness > 15 = false then
+Keyboard.One = true
+wait 2 ms                           // Melee Slayer- (change Melee Switch to Keyboard.Two above)
+Keyboard.One = false
+elseif Wiimote.Shakiness > 7 and Wiimote.Nunchuk.Shakiness > 15 = false and Wiimote.A = false and Wiimote.B = false and Wiimote.Minus = false and Wiimote.Plus = false and Keyboard.A = false and Keyboard.Two = false and Keyboard.Five = false then
+Keyboard.One = true
+wait 2 ms
+Keyboard.One = false
+elseif (Wiimote.Nunchuk.Shakiness > 15 or Wiimote.Nunchuk.Stabbing) and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Shakiness > 8 = false and Wiimote.Plus = false and Wiimote.Minus = false and Wiimote.Nunchuk.Z = false and Keyboard.Five = false then
+Keyboard.One = true
+wait 2 ms                           // Chuk Melee Switch
+Keyboard.One = false
+endif
+
+//if HeldDown (Wiimote.A, 500ms) and Wiimote.Shakiness > 5 and Wiimote.Nunchuk.Shakiness > 12 = false and Wiimote.B = false and Wiimote.Nunchuk.Z = false and Wiimote.Minus = false and Wiimote.Plus = false and Keyboard.A = false and Keyboard.Five = false and Keyboard.Equals = false then
+//Keyboard.Two = true
+//wait 2 ms                           // Melee Slayer- (add elseif below)
+//Keyboard.Two = false
+//Keyboard.B = true
+//wait 2 ms
+//Keyboard.B = false
+//wait 296 ms
+if Wiimote.A and (Wiimote.Stabbing or Wiimote.Shakiness > 4) and Wiimote.Nunchuk.Shakiness > 12 = false and Wiimote.B = false and Wiimote.Nunchuk.Z = false and Wiimote.Minus = false and Wiimote.Plus = false and Keyboard.A = false and Keyboard.Five = false and Keyboard.Equals = false then
+Keyboard.B = true
+wait 2 ms                           // Stab Slash, Quick & Charged Attacks (try spinning horizontal attack Whirling-Hammer-Blade ;)
+Keyboard.B = false
+wait 298 ms
+elseif Wiimote.A and (Wiimote.Stabbing or Wiimote.Shakiness > 4) and (Wiimote.Nunchuk.Shakiness > 12 or Wiimote.Nunchuk.Stabbing) and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.B = false and Wiimote.Nunchuk.Z = false and Wiimote.Minus = false and Wiimote.Plus = false and Keyboard.Five = false and Keyboard.Equals = false then
+Keyboard.B = true                   // Shove, Charged Attack Combo
+//elseif Wiimote.B = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.Z = false then
+//Keyboard.One = true
+//wait 2 ms                           // Hammer-Strike (Melee Slayer with two handed secondary weapon, 1-1 motion)
+//Keyboard.One = false
+//Keyboard.Two = true
+//wait 6 ms
+//Keyboard.Two = false
+//Keyboard.B = true
+//wait 12 ms
+//Keyboard.B = false
+elseif Wiimote.B = true and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.Shakiness > 16 = false then
+Keyboard.Two = true
+wait 2 ms                           // Dash-Attack (slightly faster movement or attacks, limited or no hit detection, 1-1 motion drains real life stamina ;)
+Keyboard.Two = false
+Keyboard.B = true
+wait 2 ms
+Keyboard.B = false
+wait 296 ms
+endif
+
+//if Wiimote.A and Wiimote.Nunchuk.Z and Wiimote.Shakiness > 8 and Wiimote.RelAcc > 16 and Wiimote.B = false and Keyboard.A = false and Keyboard.Equals = false then
+//Keyboard.B = true
+//wait 2 ms                           // Push (lefty or dual Salt) delete // Push, Push Strike below if used
+//Keyboard.B = false
+//wait 398 ms
+//elseif Wiimote.Nunchuk.Z and Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Nunchuk.RelAcc > 24 and Wiimote.Shakiness > 8 = false and Keyboard.A = false and Keyboard.Equals = false then
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false                // Push Strike (lefty or dual Salt) bop ranged can miss fire with out all the ones lol (30ms 2 frame delay at 60hz)
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//wait 2 ms
+//Keyboard.One = true
+//wait 2 ms
+//Keyboard.One = false
+//Keyboard.B = true
+//wait 370 ms
+//Keyboard.One and Keyboard.B = false
+if Wiimote.Nunchuk.Z and ((Wiimote.Nunchuk.Stabbing) or (Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Nunchuk.RelAcc > 24)) and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Pitch > 60 = false and Keyboard.A = false then
+Keyboard.B = true
+wait 2 ms                           // Push
+Keyboard.B = false
+wait 98 ms
+elseif Wiimote.A and Wiimote.Nunchuk.Z and ((Wiimote.Stabbing) or (Wiimote.Shakiness > 8) or (Wiimote.Shakiness > 12) or (Wiimote.Shakiness > 16)) and Wiimote.Nunchuk.Shakiness > 24 = false and Wiimote.B = false and Keyboard.A = false then
+Keyboard.B = true                   // Push Strike
+wait 100 ms
+elseif Wiimote.A and HeldDown (Wiimote.B, 2ms) then
+Keyboard.Two = true
+Keyboard.B = false                  // Barrage (optional rapid-fire hairpin trigger delete for Drakegun, Beamstaff, Slayer)
+wait 2 ms
+Keyboard.B = true
+wait 2 ms
+elseif (Wiimote.A or Wiimote.Nunchuk.Z) and (Wiimote.Stabbing or Wiimote.Shakiness > 4 or Wiimote.Nunchuk.Stabbing or Wiimote.Nunchuk.Shakiness > 12) and (Wiimote.Shakiness > 8 = false or Wiimote.Nunchuk.Shakiness > 16 = false) and Wiimote.Minus = false and Wiimote.Plus = false and Keyboard.Five = false then
+Keyboard.One = true                 // Melee Switch (delete // for Melee Slayer leave endif)
+endif
+
+if Wiimote.PointerOnScreen = false and Wiimote.B and (Wiimote.Pitch > 50 or Wiimote.Pitch > 55 or Wiimote.Pitch > 60) and Wiimote.A = false and Wiimote.Nunchuk.Z = false and Keyboard.X = false then
+Keyboard.One and Keyboard.B = false
+wait 2 ms
+Keyboard.Five = true
+wait 2 ms                           // Mote Bomb
+Keyboard.B = true
+wait 2 ms
+Keyboard.Five and Keyboard.B = false
+endif
+
+if Wiimote.PointerOnScreen = true and Wiimote.Nunchuk.C = true and (Wiimote.Nunchuk.SmoothPitch > 60 or Wiimote.Nunchuk.Pitch > 60) and Wiimote.Nunchuk.Z = false and Keyboard.X = false then
+Keyboard.C and Keyboard.L = false
+Keyboard.Five = true
+wait 2 ms                           // Chuk Bomb
+Keyboard.B = true
+elseif Wiimote.PointerOnScreen = true and Wiimote.Nunchuk.C = false and Wiimote.B = false and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Shakiness > 12 = false then
+Keyboard.Five and Keyboard.B = false
+endif
+
+if Wiimote.Nunchuk.C and Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Shakiness > 4 = false and Wiimote.Nunchuk.Z = false then
+Keyboard.J = true
+Keyboard.B = true                   // Jump Strike (for heavy weapons change wait to 400ms)
+wait 300 ms
+Keyboard.B and Keyboard.J = false
+elseif Wiimote.Nunchuk.C and Wiimote.Nunchuk.Z and Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Nunchuk.RelAcc > 24 and Wiimote.Shakiness > 8 = false then
+Keyboard.J = true
+Keyboard.B = true                   // Jump-Duck Push (lefty or dual Salt, change Keyboard.B = true, 400ms delete // wait 398ms below)
+wait 400 ms
+Keyboard.B and Keyboard.J = false
+//wait 398 ms
+elseif Wiimote.A and Wiimote.Nunchuk.C and Wiimote.Nunchuk.Z and ((Wiimote.Stabbing) or (Wiimote.Shakiness > 8 and Wiimote.RelAcc > 16)) then
+Keyboard.J = true
+Keyboard.B = true                   // Jump-Duck Push Strike (lefty or Salt dual, add // wait 100ms below)
+wait 300 ms
+Keyboard.B and Keyboard.J = false
+wait 100 ms
+elseif ((Wiimote.Nunchuk.Stabbing) or (Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Nunchuk.RelAcc > 24)) and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.C = false and Wiimote.Nunchuk.Z = false and Keyboard.A = false and Keyboard.Five = false and Keyboard.Equals = false then
+Keyboard.B = true
+wait 2 ms                           // Dual Melee (delete // for single-weapon combat)
+Keyboard.B = false
+elseif Wiimote.Shakiness > 8 and Wiimote.PointerVisible = false and Wiimote.A = false then
+Keyboard.Z = false
+Keyboard.B = true                   // Melee (attack while holding Z with Thumbstick control)
+wait 2 ms
+Keyboard.B = false
+//elseif Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Nunchuk.RelAcc > 24 and Wiimote.Nunchuk.Pitch > 60 = false and Wiimote.Nunchuk.C = false and Wiimote.Nunchuk.Z = false then
+//Keyboard.Z = true and Keyboard.B = false
+//wait 2 ms
+//Keyboard.B = true
+//wait 2 ms                           // Push+ (delete // for dual-weapon combat)
+//Keyboard.B = false
+//wait 296 ms
+//Keyboard.Z = false
+elseif (Wiimote.Nunchuk.Z) or (Wiimote.A and Wiimote.Nunchuk.Z) then
+Keyboard.Z = true                   // Block
+endif
+
+if Wiimote.PointerVisible and ((Wiimote.Nunchuk.SwingVertical or Wiimote.Nunchuk.SwingUp or Wiimote.Nunchuk.SwingDown or Wiimote.Nunchuk.SwingUpDown or Wiimote.Nunchuk.SwingDownUp or Wiimote.Nunchuk.SwingUpStop or Wiimote.Nunchuk.SmoothPitch = 90 or Wiimote.Nunchuk.Pitch = 90) or (Wiimote.Nunchuk.Shakiness > 8 and Wiimote.Nunchuk.RawAccY > 12 and Wiimote.Nunchuk.RelAccY > 16)) and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.Pitch > 90 = false and Wiimote.Nunchuk.SmoothPitch > 90 = false and Wiimote.Nunchuk.Z = false and Wiimote.Nunchuk.C = false and Wiimote.Plus = false and Wiimote.Minus = false and Keyboard.Five = false then
+Keyboard.One = true
+wait 2 ms                           // Charged Chuk Attack (most weapons use 300-400ms total)
+Keyboard.One = false
+Keyboard.B = true
+wait 298 ms
+Keyboard.B = false
+endif
+
+if Wiimote.Minus and (Wiimote.Nunchuk.Shakiness > 4 or Wiimote.Nunchuk.Pitch > 45) then
+Keyboard.Z and Keyboard.One and Keyboard.Two = false
+Keyboard.Three = true
+wait 2 ms                           // Swig Potion
+Keyboard.B = true
+wait 2 ms
+Keyboard.Three and Keyboard.B = false
+wait 296 ms
+endif
+if HeldDown (Wiimote.Nunchuk.C, 300ms) and HeldDown (Wiimote.Nunchuk.Z, 300ms) and (Wiimote.Nunchuk.Pitch > 60 or Wiimote.Nunchuk.SmoothPitch > 45) and Wiimote.Nunchuk.Shakiness > 12 = false then
+Keyboard.Z and Keyboard.One and Keyboard.Two = false
+Keyboard.Four = true
+wait 2 ms                           // Swig 2nd Potion
+Keyboard.B = true
+wait 2 ms
+Keyboard.Four and Keyboard.B = false
+wait 296 ms
+endif
+
+if Wiimote.RelAcc > 36 and Wiimote.Nunchuk.RelAcc > 40 and Wiimote.Nunchuk.Z = false then
+Keyboard.X = true
+wait 2 ms                           // Skills (optional, delete // if using vanish) edit values for strength
+Keyboard.X = false
+endif
+if DoubleClicked (Wiimote.Nunchuk.C) and Wiimote.A = false and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Shakiness > 16 = false and Keyboard.Five = false then
+Keyboard.X = true                   // Skill
+elseif Wiimote.B or Wiimote.Nunchuk.Z or Wiimote.Shakiness > 8 or Wiimote.Nunchuk.Shakiness > 16 then
+Keyboard.X = false
+endif
+if Wiimote.Nunchuk.Z and DoubleClicked (Wiimote.Down) and Wiimote.A = false then
+Keyboard.X = true
+wait 2 ms                           // Defend-Skill
+Keyboard.X = false
+endif
+if Wiimote.PointerVisible and Wiimote.Nunchuk.Z and Wiimote.Up then
+Keyboard.X = true
+elseif Wiimote.Up = false then      // Extra-Skill (some skills in 3rd person)
+Keyboard.X = false
+endif
+
+if Wiimote.B and Wiimote.Shakiness > 8 then
+Keyboard.Ctrl = false
+endif
+if Wiimote.Minus and Wiimote.Shakiness > 12 then
+Keyboard.Three = false
+endif
+if Wiimote.Plus and Wiimote.Shakiness > 12 then
+Keyboard.One = true
+endif
+
+// Chuk- Input, Movement
+
+Keyboard.C = Wiimote.Nunchuk.C and Wiimote.Down = false and Wiimote.Nunchuk.Pitch > 60 = false and Keyboard.L = false and Keyboard.X = false
+Keyboard.L = HeldDown (Wiimote.Nunchuk.C, 200ms)
+Keyboard.S = (Wiimote.Nunchuk.Z and Wiimote.Down) or (Wiimote.Nunchuk.C and Wiimote.Nunchuk.Z)
+Keyboard.T = DoubleClicked (Wiimote.Nunchuk.Z)
+Keyboard.Z = Wiimote.Nunchuk.Z
+
+if DoubleClicked (Wiimote.Nunchuk.Z) and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Shakiness > 16 = false then
+Keyboard.A and Keyboard.Equals = true
+wait 500 ms                         // Switch, Grab
+Keyboard.A and Keyboard.Equals = false
+endif
+
+if Wiimote.A and Wiimote.B then
+Keyboard.One = false
+Keyboard.Two = true                 // Ranged Switch (delete // for Melee Slayer)
+wait 2 ms
+Keyboard.Two = false
+Keyboard.B = true
+endif
+
+//if Wiimote.Nunchuk.C and Wiimote.B and Wiimote.PointerOnScreen = true then
+//Keyboard.B = true
+//wait 2 ms                           // Extra Special (add and Wiimote.Nunchuk.C = false to Ranged Switch above if used) for bop
+//Keyboard.B = false
+//endif
+//if Wiimote.Nunchuk.C and Wiimote.B then
+//Keyboard.S = true
+///wait 2 ms
+//Keyboard.S = false
+//endif
+
+Keyboard.Up = Wiimote.Nunchuk.JoyY < -0.3
+Keyboard.Down = Wiimote.Nunchuk.JoyY > 0.3
+Keyboard.Left = Wiimote.Nunchuk.JoyX < -0.4 and Wiimote.Minus = false and Wiimote.Plus = false and Wiimote.Nunchuk.Pitch > 60 = false
+Keyboard.Right = Wiimote.Nunchuk.JoyX > 0.4 and Wiimote.Minus = false and Wiimote.Plus = false and Wiimote.Nunchuk.Pitch > 60 = false
+
+if HeldDown (Wiimote.Nunchuk.Z, 400ms) and Wiimote.Shakiness > 8 and Wiimote.A = false then
+Keyboard.Left and Keyboard.Right = false
+endif                               // Thumbstick Control
+
+if Wiimote.Nunchuk.Pitch > 60 and Wiimote.A then
+Keyboard.Left = Wiimote.Nunchuk.JoyX < -0.5
+elseif Wiimote.Nunchuk.Pitch > 60 and Wiimote.A = false then
+Keyboard.Left = false
+endif
+if Wiimote.Nunchuk.Pitch > 60 and Wiimote.A then
+Keyboard.Right = Wiimote.Nunchuk.JoyX > 0.5
+elseif Wiimote.Nunchuk.Pitch > 60 and Wiimote.A = false then
+Keyboard.Right = false
+endif
+
+if (Wiimote.Nunchuk.Z or Wiimote.Nunchuk.C) and Wiimote.Nunchuk.JoyY > 0.9 then
+Keyboard.D = true
+wait 200 ms                         // Defend-Dodge & Duck-Dodge
+Keyboard.D = false
+endif
+if (Wiimote.Nunchuk.Z or Wiimote.Nunchuk.C) and Wiimote.Nunchuk.JoyX < -0.9 then
+Keyboard.D = true
+wait 200 ms
+Keyboard.D = false
+endif
+if (Wiimote.Nunchuk.Z or Wiimote.Nunchuk.C) and Wiimote.Nunchuk.JoyX > 0.9 then
+Keyboard.D = true
+wait 200 ms
+Keyboard.D = false
+endif
+
+// ~Rumble Feedback
+// - (note) Rumble is minimal for extended Battery Life (up values but keep totals for more intensity)
+// - (note) Wiimote.Speaker function could make a fun addition for more attack feedback (woosh sound) at the cost of battery life
+
+if Wiimote.B and Wiimote.PointerOnScreen and Wiimote.Shakiness > 8 = false then
+Wiimote.Rumble = 1
+wait 90 ms                          // Ranged, Attack ~Rumble
+Wiimote.Rumble = 0
+wait 210 ms
+endif
+
+if Wiimote.Shakiness > 8 and Wiimote.PointerVisible = false and Wiimote.B = false then
+Wiimote.Rumble = 1
+wait 70 ms                          // Melee ~Rumble
+Wiimote.Rumble = 0
+wait 330 ms
+elseif Wiimote.Nunchuk.Shakiness > 16 and Wiimote.Nunchuk.RelAcc > 24 and Wiimote.Shakiness > 8 = false then
+Wiimote.Rumble = 1
+wait 80 ms                          // Chuk Melee, Push ~Rumble
+Wiimote.Rumble = 0
+wait 420 ms
+elseif Keyboard.One = true and Wiimote.Shakiness > 1 and Wiimote.Shakiness > 3 = false and Wiimote.PointerOnScreen = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.Nunchuk.SmoothPitch > 60 = false and Wiimote.Nunchuk.Z = false then
+Wiimote.Rumble = 1
+wait 90 ms                          // Charged ~Rumble
+Wiimote.Rumble = 0
+wait 410 ms
+endif
+
+if Wiimote.A and Wiimote.Shakiness > 4 and Wiimote.Shakiness > 8 = false and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.B = false and Wiimote.Nunchuk.Z = false then
+Wiimote.Rumble = 1
+wait 80 ms                          // Stab, Slash ~Rumble
+Wiimote.Rumble = 0
+wait 420 ms
+elseif Wiimote.A and Wiimote.Shakiness > 8 and Wiimote.Nunchuk.Shakiness > 16 = false and Wiimote.B = false then
+Wiimote.Rumble = 1
+wait 80 ms                          // Push Strike ~Rumble
+Wiimote.Rumble = 0
+wait 420 ms
+endif
+
+if Wiimote.PointerOnScreen and Wiimote.Nunchuk.SmoothPitch > 60 and Wiimote.Nunchuk.Shakiness > 4 and Wiimote.Nunchuk.Shakiness > 16 = false then
+Wiimote.Rumble = 1
+wait 90 ms                          // Chuk Charged ~Rumble
+Wiimote.Rumble = 0
+wait 410 ms
+endif
+if Keyboard.X and HeldDown (Keyboard.X, 100ms) = false and Wiimote.Nunchuk.OnTable = false then
+Wiimote.Rumble = 1
+wait 100 ms                         // Skill ~Rumble
+Wiimote.Rumble = 0
+wait 400 ms
+endif
+
+// Special Thanks                                             //\
+                                                            //---\
+// Lateral Thinker- Gunpei Yokoi                          //___V__\
+// GlovePie Creator, IR Scripts- Carl Kenner             //\     //\
+// FATSHARK, PLUMPPORPOISE & MASSIVEMAKO               //---\   /---\
+// Praise Sigmar! rip & tear...                      //___V__\//__V__\
+
+
+
+
+
