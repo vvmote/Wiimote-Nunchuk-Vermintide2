@@ -5,7 +5,7 @@
 // - Sensor Bar required 40" Display rendering 60fps minimum, optimized for 60" 16x9 Display with Sensor Bar below (use CP-Settings above to set distance)
 // - Display size, hz, aspect ratio, input lag & PC mouse settings, fps, fov, stacking frames & Wiimote or Sensor Bar, calibration, position also light sources will effect IR
 // - Display refresh (120hz-240hz) will enhance Wiimote IR with diminishing returns (change resolution below, low frame rates less then 60fps or high can ping break motion control and combo keys)
-// - Place Wiimote level before running script wait 5-10 seconds for LED calibration (Wiimote+ enhanced) basic Wiimote (requires 1x edit) is lighter has more intense rumble and longer battery life
+// - Place Wiimote level before running script wait 5-10 seconds for LED calibration (Wiimote+ enhanced) basic Wiimote is lighter has more intense rumble and longer battery life
 // - (VR)mintide could work sitting but would require anything mouse movement related to be // deleted or binded to D-Pad only (IR-Mouse allows for movement not suitable in VR) no whirling wutelgi's
 
 // Control Key- Mote
@@ -117,7 +117,7 @@
 // Script is optimized for Center of Display at roughly eye-level with Sensor Bar below Display (Sensor Bar above Display may work better for your setup make sure to change Wii- Sensor Bar settings)
 // - (note) some builds require simple edits to (optional) Barrage & Skills scripts below also (Dual Melee or Push+) scripts can be deleted // for single or dual weapon combat (dual weilding recommended)
 // - (note) Slayer requires additional x5 edits (instructions below) unless using ranged secondary weapon (Come on Wazzoks! more like the Ubersreik four and a half)
-// - (note) calibrate all Wiimotes for offsets with xyzg's also check x1 simple edit below for basic Wiimote & Wiimote+
+// - (note) calibrate all Wiimotes for rotatation offsets with xyzg's = -xyzRot
 // [DANGER] do not throw Wiimote! [WARNING] use motion controls at own risk... (coordination and effort required, no lumberfoots ;)
 
 // Wiimote refresh- 500hz (1024x768, 100hz IR, Accel/Gyro x3)
@@ -136,7 +136,7 @@ var.zRot = var.zOffset + Wiimote.gz                  //___V__\//__V__\
 // Phantom Dot Sensor Bar
 
 var.SensorBarSeparation = 190.5mm
-var.NoYawAllowed = false // Wiimote = true, Wiimote+ = false
+var.NoYawAllowed = false 
 var.IRMulX = 1.2
 var.IRMulY = 1.2
 var.IROffsetX = 0
@@ -253,7 +253,7 @@ var.MiddleDotVis = wiimote.dot1vis or wiimote.dot2vis
 if var.MiddleDotVis then
 var.TotalPitch = atan2(511.5*var.MiddleDotY,1320) + var.yRot
 var.DotYaw = atan2(-511.5*var.MiddleDotX,1320)
-var.WiimoteYawNoX = atan2(511.5*var.MiddleDotX,1320) + Wiimote.Yaw
+var.WiimoteYawNoX = atan2(511.5*var.MiddleDotX,1320)
 var.WiimoteXNoYaw = -sin(var.dotyaw)*var.IRDistance
 var.WiimoteY = -sin(var.totalpitch)*var.IRDistance
 var.WiimoteZ = (-sqrt(sqr(var.IRDistance) - sqr(var.WiimoteY)))*var.IRDistance/RemoveUnits(var.IRDistance)
