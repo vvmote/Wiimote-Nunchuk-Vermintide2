@@ -136,7 +136,7 @@ var.zRot = var.zOffset + Wiimote.gz                  //___V__\//__V__\
 // Phantom Dot Sensor Bar
 
 var.SensorBarSeparation = 190.5mm
-var.NoYawAllowed = false 
+var.NoYawAllowed = true 
 var.IRMulX = 1.2
 var.IRMulY = 1.2
 var.IROffsetX = 0
