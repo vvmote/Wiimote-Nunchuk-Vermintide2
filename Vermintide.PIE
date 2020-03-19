@@ -113,7 +113,7 @@
 
 // Attention!
 // Glovepie is system level if the Wiimote disconnects while IR is (A)ctive you will likey have to manually restart or sign out (because mouse control could be temporarily broken)
-// The following Script offer no cheating advantage over what can be easily acheived with Mouse & Keyboard... (acceleration, keybinds)
+// The following Script offer no cheating advantage over what can be easily acheived with Mouse & Keyboard... (acceleration, dpi, keybinds)
 // Script is optimized for Center of Display at roughly eye-level with Sensor Bar below Display (Sensor Bar above Display may work better for your setup make sure to change Wii- Sensor Bar settings)
 // - (note) some builds require simple edits to (optional) Barrage & Skills scripts below also (Dual Melee or Push+) scripts can be deleted // for single or dual weapon combat (dual weilding recommended)
 // - (note) Slayer requires additional x5 edits (instructions below) unless using ranged secondary weapon (Come on Wazzoks! more like the Ubersreik four and a half)
@@ -141,7 +141,6 @@ var.IRMulX = 1.2
 var.IRMulY = 1.2
 var.IROffsetX = 0
 var.IROffsetY = 0
-var.IRButton = Wiimote.A and Wiimote.Down and Wiimote.Up
 
 // Roll
 var.c = cos(smooth(var.xRot, 10))
@@ -292,8 +291,6 @@ var.SmoothX = Smooth(var.IRx, 2, 4/1024)
 var.SmoothY = Smooth(var.IRy, 2, 4/1024)
 endif
 
-var.Freeze = var.IRButton and KeepDown(pressed(var.IRButton) or pressed(var.IRButton), 10ms)
-
 // WiiMouse- IR Orb, Accurate Center Linear Offset
 // - (note) calibrated on 1080p 60hz 16x9 60" Display 90-100fov 1.2m distance
 
@@ -324,7 +321,7 @@ var.width = 1024/2
 var.heidth = 768/2
 var.x=-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width)+sign(-wiimote.dot1x+(var.width)-wiimote.dot2x+(var.width))*((abs(wiimote.pointerx-1/2))*5.5)^6
 var.xout=(var.x+var.x1)
-var.x1=var.xout+var.x               // OneEyed Grimgi (-dot deduction)
+var.x1=var.xout+var.x               // OneEyed Grimgi (-doty deduction)
 fakemouse.directinputx=(var.x1)*3%
 elseif Wiimote.A and Wiimote.B = false and ((var.leftdotvis = false and var.rightdotvis = false) or (Wiimote.PointerOnScreen = false)) then
 var.width = 1024/2
