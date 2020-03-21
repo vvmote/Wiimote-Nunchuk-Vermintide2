@@ -122,12 +122,12 @@
 
 // Wiimote refresh- 500hz (1024x768, 100hz IR, Accel/Gyro x3)
 
-Debug = wiimote.gx + " " + wiimote.gy + " " + wiimote.gz// use opposite values for offsets or try any variable or Wiimote function
+Debug = wiimote.gx + " " + wiimote.gy + " " + wiimote.gz// use opposite values so offsets x,z = 0 & y = 1 or try any variable or Wiimote function
 
 // Calibrate TriForces
 
 var.xOffset = 0.02                                            //\
-var.yOffset = -1.04                                         //---\
+var.yOffset = -0.04                                         //---\
 var.zOffset = -0.02                                       //___V__\
 var.xRot = var.xOffset + Wiimote.gx                      //\     //\
 var.yRot = var.yOffset + Wiimote.gy                    //---\   /---\
