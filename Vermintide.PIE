@@ -16,7 +16,7 @@
 // jump- J                          - C, (Motion chuk for charged attack)
 // dodge- D                         - C, Hold Z and Thumbstick
 // crouch- L                        - Hold C - A, A and Down
-// walk- Shift                      - Down
+// walk- E                          - Down
 
 // attack- B                        - B, Motion mote or chuk, A and Motion mote or chuk (Hold A and B for rapid-fire) optional
 // defend/zoom- Z                   - Z
@@ -518,7 +518,7 @@ Keyboard.T = Wiimote.Down and Wiimote.PointerOnScreen = true and Wiimote.A = fal
 Keyboard.V = Wiimote.Up and Wiimote.PointerVisible
 Keyboard.W = DoubleClicked (Wiimote.Down) and Wiimote.PointerOnScreen and Wiimote.A = false and Wiimote.Nunchuk.C = false and Wiimote.Shakiness > 7 = false and Wiimote.Nunchuk.Shakiness > 15 = false and HeldDown (Wiimote.Nunchuk.Z, 80ms) = false
 //Keyboard.Y = Wiimote.Down and (Wiimote.PointerOnScreen = false or Wiimote.Shakiness > 8 or Wiimote.Nunchuk.Shakiness > 16) and Wiimote.Nunchuk.Z = false and Wiimote.A = false and Wiimote.B = false
-Keyboard.Shift = Wiimote.Down and Wiimote.PointerOnScreen// ^optional (Y)-Targeting with Aimbot mod for solo use intructions above or // default
+Keyboard.E = Wiimote.Down and Wiimote.PointerOnScreen// ^optional (Y)-Targeting with Aimbot mod for solo use intructions above or // default
 Keyboard.Space = Wiimote.Down and Wiimote.A = false and Wiimote.B = false and Wiimote.PointerOnScreen and Wiimote.Nunchuk.C = false and Wiimote.Nunchuk.Z = false and Wiimote.Shakiness > 7 = false and Wiimote.Nunchuk.Shakiness > 15 = false and Keyboard.Y = false
 
 if DoubleClicked (Wiimote.A) and Wiimote.Nunchuk.Z = false then
