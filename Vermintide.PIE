@@ -4,7 +4,7 @@
 // - IR + Motion is designed primarily for first person gaming not static backdrops (windows, menus feel a bit janky, Keep can lag) if useing Wii U use Wii mode to power Sensor Bar
 // - Sensor Bar required 40" Display rendering 60fps minimum, optimized for 60" 16x9 Display with Sensor Bar below (use CP-Settings above to set distance)
 // - Display size, hz, aspect ratio, input lag & PC mouse settings, fps, fov, stacking frames & Wiimote or Sensor Bar, calibration, position also light sources will effect IR
-// - Display refresh (120hz-240hz) will enhance Wiimote IR with diminishing returns (low frame rates less then 60fps or high can ping break motion control and combo keys)
+// - Display refresh (120hz-240hz) will enhance Wiimote IR with diminishing returns (low frame rates less then 60fps or high ping can break motion control and combo keys)
 // - Place Wiimote level before running script wait 5-10 seconds for LED calibration (Wiimote+ enhanced) basic Wiimote is lighter has more intense rumble and longer battery life
 // - (VR)mintide could work sitting but would require anything mouse movement related to be // deleted or binded to D-Pad only (IR-Mouse allows for movement not suitable in VR) no whirling wutelgi's
 
