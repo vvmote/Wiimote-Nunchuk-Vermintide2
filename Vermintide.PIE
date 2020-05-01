@@ -133,6 +133,10 @@ var.xRot = var.xOffset + Wiimote.gx                      //\     //\
 var.yRot = var.yOffset + Wiimote.gy                    //---\   /---\
 var.zRot = var.zOffset + Wiimote.gz                  //___V__\//__V__\
 
+wiimote.gx = var.xRot
+wiimote.gy = var.yRot
+wiimote.gz = var.zRot
+
 // Phantom Dot Sensor Bar
 
 var.SensorBarSeparation = 190.5mm
